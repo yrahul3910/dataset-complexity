@@ -4,6 +4,7 @@ import numpy as np
 
 from raise_utils.data import Data, DataLoader
 from raise_utils.hooks import Hook
+from raise_utils.transforms import Transform
 from spectral_metric.estimator import CumulativeGradientEstimator
 
 
@@ -34,6 +35,9 @@ def load_defect_data(dataset: str) -> Data:
     )
     data.x_train = np.array(data.x_train)
     data.y_train = np.array(data.y_train)
+
+    transform = Transform("normalize")
+    transform.apply(data)
 
     return data
 
