@@ -1,10 +1,14 @@
 import warnings
 
+from itertools import product
+from pathlib import Path
+
 import numpy as np
 
 from raise_utils.data import Data, DataLoader
 from raise_utils.hooks import Hook
 from raise_utils.transforms import Transform
+from sklearn.manifold import TSNE
 from spectral_metric.estimator import CumulativeGradientEstimator
 
 
@@ -27,7 +31,7 @@ def load_defect_data(dataset: str) -> Data:
     def _binarize(x, y):
         y[y > 1] = 1
 
-    base_path = "../../data/defect_prediction/"
+    base_path = str((Path(__file__).parent.parent.parent / "data/defect_prediction/").resolve())
     data = DataLoader.from_files(
         base_path=base_path,
         files=defect_file_dic[dataset],
@@ -43,10 +47,14 @@ def load_defect_data(dataset: str) -> Data:
 
 
 warnings.filterwarnings("ignore")
-for filename in defect_file_dic:
+for filename, tsne in product(defect_file_dic, [True, False]):
     dataset = load_defect_data(filename)
+    if tsne:
+        x_train = TSNE(n_components=3).fit_transform(dataset.x_train)
+    else:
+        x_train = dataset.x_train
     estimator = CumulativeGradientEstimator(M_sample=250, k_nearest=5)
-    estimator.fit(data=dataset.x_train, target=dataset.y_train)
+    estimator.fit(data=x_train, target=dataset.y_train)
 
-    print(f"{filename}: {estimator.csg}")
+    print(f"{filename} (TSNE: {tsne}): {estimator.csg}")
     # make_graph(estimator.difference, title=filename, classes=["clean", "defective"])
