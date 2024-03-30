@@ -10,6 +10,13 @@ This repo studies the dataset complexities for a variety of datasets in SE and M
 
 ## Setting up
 
+1. Please set up `pre-commit`:
+
+```
+pip3 install pre-commit
+pre-commit install
+```
+
 1. Please install the code for the CSG metric:
 
 ```sh
