@@ -11,7 +11,7 @@ from sklearn.preprocessing import LabelBinarizer, MinMaxScaler, Normalizer, Robu
 from tqdm import tqdm
 
 
-class SmoothnessMetric(BaseMetric):
+class StrongConvexityMetric(BaseMetric):
     def __init__(self, x_train: NDArray[NpFloat], y_train: ArrayLike):
         super().__init__(x_train, y_train)
         self.y_train = np.array(self.y_train)
@@ -49,9 +49,9 @@ class SmoothnessMetric(BaseMetric):
             Normalizer()
         ])
 
-    def _max(self, betas: list) -> Float:
-        # Return the maximum element that is not zero
-        return max(list(filter(lambda x: x > 0, betas)))
+    def _min(self, betas: list) -> Float:
+        # Return the minimum element that is not zero
+        return min(list(filter(lambda x: x > 0, betas)))
 
     def get_complexity(self) -> Float:
         n_class = self._determine_n_class()
@@ -70,7 +70,7 @@ class SmoothnessMetric(BaseMetric):
             def activ_func(xb):
                 return Model(inputs=model.layers[0].input, outputs=model.layers[-2].output)(xb)
 
-            Ka_Kw = np.inf
+            Ka_Kw = 0.
             for i in range((len(self.x_train) - 1) // BATCH_SIZE + 1):
                 start_i = i * BATCH_SIZE
                 end_i = start_i + BATCH_SIZE
@@ -80,8 +80,8 @@ class SmoothnessMetric(BaseMetric):
                 Kw = np.linalg.norm(model.layers[-1].weights[0])
 
                 if not np.isinf(Ka / Kw):
-                    Ka_Kw = min(Ka_Kw, Ka / Kw)
+                    Ka_Kw = max(Ka_Kw, Ka / Kw)
 
-            betas.append((n_class - 1) / (n_class * BATCH_SIZE) * Ka_Kw)
+            betas.append(1. / BATCH_SIZE * Ka_Kw)
 
-        return self._max(betas)
+        return self._min(betas)
