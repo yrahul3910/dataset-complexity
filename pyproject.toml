@@ -1,3 +1,24 @@
+[tool.poetry]
+name = "dataset-complexity"
+version = "0.1.0"
+description = "TBD"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+raise-utils = "^2.2.1"
+spectral-metric = "^0.6.1"
+tensorflow = "^2.16.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.4"
+pre-commit = "^3.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.ruff]
 exclude = [
     ".DS_Store",
