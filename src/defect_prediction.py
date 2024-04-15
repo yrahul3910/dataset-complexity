@@ -3,10 +3,9 @@ import warnings
 from itertools import product
 from pathlib import Path
 
-from metrics import CSGMetric
-
 import numpy as np
 
+from metrics import CSGMetric
 from raise_utils.data import Data, DataLoader
 from raise_utils.hooks import Hook
 from raise_utils.transforms import Transform
