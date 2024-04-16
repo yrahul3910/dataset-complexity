@@ -4,12 +4,16 @@ version = "0.1.0"
 description = "TBD"
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
+packages = [{include = "metrics", from="src"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 raise-utils = "^2.2.1"
 spectral-metric = "^0.6.1"
 tensorflow = "^2.16.1"
+arff = "^0.9"
+pandas = "^2.2.2"
+lxml = "^5.2.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.4"
