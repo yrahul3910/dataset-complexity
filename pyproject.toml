@@ -30,8 +30,7 @@ exclude = [
     "__pycache__",
     ".mypy_cache",
     ".ruff_cache",
-    "spectral-metric",
-    "data"
+    "spectral-metric"
 ]
 
 line-length = 120
