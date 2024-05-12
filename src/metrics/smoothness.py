@@ -34,20 +34,15 @@ class SmoothnessMetric(BaseMetric):
 
         model = Sequential()
         for _ in range(n_layers):
-            model.add(Dense(n_units, activation='relu'))
+            model.add(Dense(n_units, activation="relu"))
 
-        model.add(Dense(n_class, activation='softmax'))
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        model.add(Dense(n_class, activation="softmax"))
+        model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
         return model
 
     def _get_random_preprocessor(self) -> Preprocessor:
-        return random.choice([
-            MinMaxScaler(),
-            StandardScaler(),
-            RobustScaler(),
-            Normalizer()
-        ])
+        return random.choice([MinMaxScaler(), StandardScaler(), RobustScaler(), Normalizer()])
 
     def _max(self, betas: list) -> Float:
         # Return the maximum element that is not zero

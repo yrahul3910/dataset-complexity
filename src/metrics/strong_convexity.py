@@ -34,20 +34,15 @@ class StrongConvexityMetric(BaseMetric):
 
         model = Sequential()
         for _ in range(n_layers):
-            model.add(Dense(n_units, activation='relu'))
+            model.add(Dense(n_units, activation="relu"))
 
-        model.add(Dense(n_class, activation='softmax'))
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        model.add(Dense(n_class, activation="softmax"))
+        model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
         return model
 
     def _get_random_preprocessor(self) -> Preprocessor:
-        return random.choice([
-            MinMaxScaler(),
-            StandardScaler(),
-            RobustScaler(),
-            Normalizer()
-        ])
+        return random.choice([MinMaxScaler(), StandardScaler(), RobustScaler(), Normalizer()])
 
     def _min(self, betas: list) -> Float:
         # Return the minimum element that is not zero
@@ -70,7 +65,7 @@ class StrongConvexityMetric(BaseMetric):
             def activ_func(xb):
                 return Model(inputs=model.layers[0].input, outputs=model.layers[-2].output)(xb)
 
-            Ka_Kw = 0.
+            Ka_Kw = 0.0
             for i in range((len(self.x_train) - 1) // BATCH_SIZE + 1):
                 start_i = i * BATCH_SIZE
                 end_i = start_i + BATCH_SIZE
@@ -82,6 +77,6 @@ class StrongConvexityMetric(BaseMetric):
                 if not np.isinf(Ka / Kw):
                     Ka_Kw = max(Ka_Kw, Ka / Kw)
 
-            betas.append(1. / BATCH_SIZE * Ka_Kw)
+            betas.append(1.0 / BATCH_SIZE * Ka_Kw)
 
         return self._min(betas)
