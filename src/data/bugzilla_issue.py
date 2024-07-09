@@ -6,7 +6,15 @@ from raise_utils.transforms import Transform
 from sklearn.model_selection import train_test_split
 
 
-def load_issue_lifetime_prediction_data(base_dir: str, filename: str, n_classes: int) -> Data:
+def bugzilla_loader():
+    for dataset in ["firefox", "eclipse", "chromium"]:
+        for n_class in [2, 3, 5, 7, 9]:
+            yield load_bugzilla_issue_lifetime_prediction_data(
+                "../data/issue_close_time_prediction/bugzilla", dataset, n_class
+            )
+
+
+def load_bugzilla_issue_lifetime_prediction_data(base_dir: str, filename: str, n_classes: int) -> tuple[str, Data]:
     df = pd.read_csv(f"{base_dir}/{filename}.csv")
     df.drop(["Unnamed: 0", "bugID"], axis=1, inplace=True)
     _df = df[["s1", "s2", "s3", "s4", "s5", "s6", "s8", "y"]]
@@ -24,7 +32,7 @@ def load_issue_lifetime_prediction_data(base_dir: str, filename: str, n_classes:
 
     data = Data(*train_test_split(x, y))
     data = split_data(filename, data, n_classes)
-    return data
+    return f"bugzilla:{filename}-{n_classes}", data
 
 
 def split_data(filename: str, data: Data, n_classes: int) -> Data:

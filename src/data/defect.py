@@ -20,7 +20,12 @@ defect_file_dic = {
 }
 
 
-def load_defect_data(base_path: str, dataset: str) -> Data:
+def defect_loader():
+    for dataset in defect_file_dic:
+        yield load_defect_data("../data/defect_prediction", dataset)
+
+
+def load_defect_data(base_path: str, dataset: str) -> tuple[str, Data]:
     def _binarize(x, y):
         y[y > 1] = 1
 
@@ -35,4 +40,4 @@ def load_defect_data(base_path: str, dataset: str) -> Data:
     transform = Transform("normalize")
     transform.apply(data)
 
-    return data
+    return f"defect:{dataset}", data
