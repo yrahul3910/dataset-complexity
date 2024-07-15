@@ -23,6 +23,7 @@ class DCoL(BaseMetric):
 
     def __init__(self, x_train: NDArray[NpFloat], y_train: ArrayLike, metric: str, variant: str):
         super().__init__(x_train, y_train)
+        self.__name__ = f"DCoL_{metric}{variant}"
         self.metric = metric
         self.variant = variant
 

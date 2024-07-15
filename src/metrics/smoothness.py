@@ -14,6 +14,7 @@ from tqdm import tqdm
 class SmoothnessMetric(BaseMetric):
     def __init__(self, x_train: NDArray[NpFloat], y_train: ArrayLike):
         super().__init__(x_train, y_train)
+        self.__name__ = "Smoothness"
         self.y_train = np.array(self.y_train)
 
     def _determine_n_class(self) -> int:
