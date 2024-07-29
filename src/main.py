@@ -1,13 +1,12 @@
 import gc
 
+import numpy as np
+
 from data.bugzilla_issue import bugzilla_loader
 from data.defect import defect_loader
 from data.github_issue import github_issue_loader
 from data.static_code import static_code_loader
 from data.uci import uci_loader
-
-import numpy as np
-
 from loguru import logger
 from metrics import get_all_estimators
 
