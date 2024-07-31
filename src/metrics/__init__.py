@@ -1,4 +1,5 @@
-from functools import partial, product
+from functools import partial
+from itertools import product
 
 from metrics.base import BaseMetric
 from metrics.csg import CSGMetric
@@ -9,23 +10,23 @@ from metrics.types import ArrayLike, Float, NDArray, NpFloat
 
 
 all_estimators = [
-    CSGMetric,
-    F1,
-    F2,
-    F3,
-    F4,
-    L1,
-    L2,
-    L3,
-    N1,
-    N2,
-    N3,
-    N4,
-    T1,
-    T2,
-    F1v,
-    SmoothnessMetric,
-    StrongConvexityMetric,
+    ("CSGMetric", CSGMetric),
+    ("F1", F1),
+    ("F2", F2),
+    ("F3", F3),
+    ("F4", F4),
+    ("L1", L1),
+    ("L2", L2),
+    ("L3", L3),
+    ("N1", N1),
+    ("N2", N2),
+    ("N3", N3),
+    ("N4", N4),
+    ("T1", T1),
+    ("T2", T2),
+    ("F1v", F1v),
+    ("SmoothnessMetric", SmoothnessMetric),
+    ("StrongConvexityMetric", StrongConvexityMetric),
 ]
 
 """
@@ -38,7 +39,7 @@ Each estimator name maps to a list of kwarg-possible value maps, e.g.
    }
 }
 """
-estimator_kwargs = {estimator.__name__: {} for estimator in all_estimators}
+estimator_kwargs = {name: {} for name, _ in all_estimators}
 
 
 def get_all_kwargs_for_estimator(estimator_name: str):
@@ -48,9 +49,9 @@ def get_all_kwargs_for_estimator(estimator_name: str):
 
 
 def get_all_estimators():
-    for estimator in all_estimators:
+    for name, estimator in all_estimators:
         # Yield every possible combo of estimator and kwargs
-        for kwargs in get_all_kwargs_for_estimator(estimator.__name__):
+        for kwargs in get_all_kwargs_for_estimator(name):
             yield partial(estimator, **kwargs)
 
 
