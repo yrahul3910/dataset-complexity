@@ -4,6 +4,7 @@ from itertools import product
 
 from data.defect import defect_file_dic, load_defect_data
 from metrics import CSGMetric
+
 from sklearn.manifold import TSNE
 
 
