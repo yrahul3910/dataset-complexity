@@ -1,22 +1,11 @@
 import gc
 
-from data.bugzilla_issue import bugzilla_loader
-from data.defect import defect_loader
-from data.github_issue import github_issue_loader
-from data.static_code import static_code_loader
-from data.uci import uci_loader
-from metrics import get_all_estimators
+from data import iterator
 
 import numpy as np
 
 from loguru import logger
-
-
-def iterator():
-    data_loaders = [defect_loader, bugzilla_loader, github_issue_loader, static_code_loader, uci_loader]
-
-    for loader in data_loaders:
-        yield from loader()
+from metrics import get_all_estimators
 
 
 logger.add("logs.txt")

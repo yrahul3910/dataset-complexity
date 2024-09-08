@@ -1,3 +1,19 @@
+[project]
+name = "dataset-complexity"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "raise-utils=2.5.1",
+    "spectral-metric^=0.6.1",
+    "arff^=0.9",
+    "pandas^=2.2.2",
+    "lxml^=5.2.1",
+    "loguru^=0.7.2",
+    "json-repair^=0.28.0",
+    "lazypredict^=0.2.12",
+    "tensorflow^=2.17.0",
+    "setuptools",
+]
+
 [tool.poetry]
 name = "dataset-complexity"
 version = "0.1.0"
@@ -7,14 +23,16 @@ readme = "README.md"
 packages = [{include = "metrics", from="src"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-raise-utils = "^2.3.0"
+python = "^3.11"
+raise-utils = "2.5.1"
 spectral-metric = "^0.6.1"
 arff = "^0.9"
 pandas = "^2.2.2"
 lxml = "^5.2.1"
 loguru = "^0.7.2"
 json-repair = "^0.28.0"
+lazypredict = "^0.2.12"
+tensorflow = "^2.17.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.4"
