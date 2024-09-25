@@ -1,6 +1,6 @@
 [project]
 name = "dataset-complexity"
-requires-python = ">=3.11,<3.12"
+requires-python = "==3.12"
 dependencies = [
     "raise-utils=2.5.1",
     "spectral-metric^=0.6.1",
@@ -10,7 +10,6 @@ dependencies = [
     "loguru^=0.7.2",
     "json-repair^=0.28.0",
     "lazypredict^=0.2.12",
-    "tensorflow^=2.17.0",
     "setuptools",
 ]
 
@@ -32,7 +31,6 @@ lxml = "^5.2.1"
 loguru = "^0.7.2"
 json-repair = "^0.28.0"
 lazypredict = "^0.2.12"
-tensorflow = "^2.17.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.4"

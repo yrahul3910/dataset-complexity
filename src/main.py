@@ -1,11 +1,12 @@
 import gc
 
-from data import iterator
+from metrics import get_all_estimators
+
+from .data import iterator
 
 import numpy as np
 
 from loguru import logger
-from metrics import get_all_estimators
 
 
 logger.add("logs.txt")
