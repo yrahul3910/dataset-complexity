@@ -6,7 +6,7 @@ from .uci import uci_loader
 
 
 def iterator():
-    data_loaders = [uci_loader, defect_loader, bugzilla_loader, github_issue_loader, static_code_loader, uci_loader]
+    data_loaders = [uci_loader, defect_loader, bugzilla_loader, github_issue_loader, static_code_loader]
 
     for loader in data_loaders:
         yield from loader()
