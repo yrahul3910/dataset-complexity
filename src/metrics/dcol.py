@@ -13,9 +13,7 @@ import pandas as pd
 
 def check_if_dcol_available():
     if shutil.which("dcol") is None:
-        raise ValueError(
-            "Can`t find DCoL util, please add binary to $PATH." "Install at https://github.com/nmacia/dcol"
-        )
+        raise ValueError("Can`t find DCoL util, please add binary to $PATH.Install at https://github.com/nmacia/dcol")
 
 
 class DCoL(BaseMetric):
